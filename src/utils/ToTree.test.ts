@@ -29,9 +29,11 @@ describe("full", () => {
   });
 
   test("toTree serves array types", () => {
-    expect(toTree({arr: ['ksi']}))
+    expect(toTree({arr: ["ksi"]}))
       .toEqual($("root", [
-        $(0, 'ksi')
+        $("arr", [
+          $("0", "ksi")
+        ])
       ]));
   });
 

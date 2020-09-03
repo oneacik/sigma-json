@@ -1,9 +1,15 @@
-function createEntry(id, value) {
+type Value = Node[] | string | number;
+type Node = { params: { id: string }, value: Value }
+
+function createEntry(id, value: Value): Node {
   return { params: { id }, value };
 }
 
-function explode(entry) {
+function explode(entry): Value {
   if (entry instanceof Object) {
+    return Object.entries(entry).map(([id, value]) => (createEntry(id, explode(value))));
+  }
+  if (entry instanceof Array) {
     return Object.entries(entry).map(([id, value]) => (createEntry(id, explode(value))));
   }
   return entry;

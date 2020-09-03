@@ -1,7 +1,7 @@
-import { toTree } from "./ToTree";
+import { Node, toTree } from "./ToTree";
 
-export function $(id, value) {
-  return { params: { id }, value };
+export function $(id, value): Node {
+  return { params: { id, expanded: false, selected: false }, value };
 }
 
 describe("full", () => {
@@ -29,7 +29,7 @@ describe("full", () => {
   });
 
   test("toTree serves array types", () => {
-    expect(toTree({arr: ["ksi"]}))
+    expect(toTree({ arr: ["ksi"] }))
       .toEqual($("root", [
         $("arr", [
           $("0", "ksi")

@@ -1,8 +1,8 @@
 type Value = Node[] | string | number;
-export type Node = { params: { id: string }, value: Value }
+export type Node = { params: { id: string, expanded: Boolean, selected: Boolean }, value: Value }
 
 function createEntry(id, value: Value): Node {
-  return { params: { id }, value };
+  return { params: { id, expanded: false, selected: false }, value };
 }
 
 function explode(entry): Value {

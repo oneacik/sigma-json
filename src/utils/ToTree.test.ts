@@ -1,7 +1,7 @@
 import { Node, toTree } from "./ToTree";
 
-export function $(id, value): Node {
-  return { params: { id, expanded: false, selected: false }, value };
+export function $(id, value, enumerable = true): Node {
+  return { params: { id, expanded: false, selected: false, enumerable }, value };
 }
 
 describe("full", () => {
@@ -14,7 +14,7 @@ describe("full", () => {
     expect(toTree({ ksi: "delta" }))
       .toEqual(
         $("root", [
-          $("ksi", "delta")
+          $("ksi", "delta", false)
         ]));
   });
 
@@ -23,7 +23,7 @@ describe("full", () => {
       .toEqual(
         $("root", [
           $("ksi", [
-            $("delta", "nile")
+            $("delta", "nile", false)
           ])
         ]));
   });
@@ -32,7 +32,7 @@ describe("full", () => {
     expect(toTree({ arr: ["ksi"] }))
       .toEqual($("root", [
         $("arr", [
-          $("0", "ksi")
+          $("0", "ksi", false)
         ])
       ]));
   });

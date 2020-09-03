@@ -9,18 +9,14 @@ configure({ adapter: new Adapter() });
 describe("Root Json Tests", () => {
   test("Root Json Node", () => {
     const sample = $("root", []);
-    const render: any = shallow(<JSONNode node={sample}/>);
-    render.equals(
-      <div>
-        <div>root</div>
-      </div>
-    );
+    const render = shallow(<JSONNode node={sample}/>);
+    expect(render.find('div div.name').text()).toEqual("root");
   });
 
   test("Root Json Modifies Expanded On Click", () => {
     const sample = $("root", []);
     const render = shallow(<JSONNode node={sample}/>);
-    render.find(".button").simulate("click");
+    render.find(".expander").simulate("click");
     expect(sample.params.expanded).toBeTruthy();
   });
 });

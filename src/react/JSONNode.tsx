@@ -6,13 +6,16 @@ React.Component;
 export function JSONNode(props: JSONNodeProps) {
   return (
     <div>
-      <div>
-        <span
+      <div className={"element"}>
+        <div
           onClick={() => props.node.params.expanded = !props.node.params.expanded}
-          className={"button"}>
-          +
-        </span>
-        {props.node.params.id}</div>
+          className={"expander"}
+        >+</div>
+        <div className={"name"}>{props.node.params.id}</div>
+      </div>
+      <div className={"elements"}>
+        {props.node.params.enumerable && (props.node.value as Node[]).map(node => <JSONNode node={node}/>)}
+      </div>
     </div>
   );
 }

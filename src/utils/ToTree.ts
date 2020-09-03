@@ -1,8 +1,12 @@
 type Value = Node[] | string | number;
-export type Node = { params: { id: string, expanded: Boolean, selected: Boolean }, value: Value }
+export type Node = { params: { id: string, expanded: Boolean, selected: Boolean, enumerable: Boolean }, value: Value }
+
+function isEnumerable(value: any) {
+  return value instanceof Array || value instanceof Object;
+}
 
 function createEntry(id, value: Value): Node {
-  return { params: { id, expanded: false, selected: false }, value };
+  return { params: { id, expanded: false, selected: false, enumerable: isEnumerable(value) }, value };
 }
 
 function explode(entry): Value {

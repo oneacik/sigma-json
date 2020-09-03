@@ -1,5 +1,5 @@
 type Value = Node[] | string | number;
-type Node = { params: { id: string }, value: Value }
+export type Node = { params: { id: string }, value: Value }
 
 function createEntry(id, value: Value): Node {
   return { params: { id }, value };

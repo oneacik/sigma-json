@@ -1,6 +1,6 @@
 import { toTree } from "./ToTree";
 
-function $(id, value) {
+export function $(id, value) {
   return { params: { id }, value };
 }
 

@@ -6,7 +6,8 @@
     "jsx": "react",
     "outDir": "dist",
     "lib": ["dom", "es2015"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

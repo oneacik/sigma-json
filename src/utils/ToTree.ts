@@ -1,11 +1,14 @@
+function createEntry(id, value) {
+  return { params: { id }, value };
+}
+
 function explode(entry) {
   if (entry instanceof Object) {
-    return Object.entries(entry).map(([id, value]) => ({ params: { id }, value: explode(value) }));
+    return Object.entries(entry).map(([id, value]) => (createEntry(id, explode(value))));
   }
   return entry;
 }
 
-export function toTree(obj: object) {
-
-  return { params: { id: "root" }, value: explode(obj) };
+export function toTree(kobiekt: object) {
+  return createEntry("root", explode(kobiekt));
 }

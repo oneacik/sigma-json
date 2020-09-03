@@ -4,7 +4,7 @@ function $(id, value) {
   return { params: { id }, value };
 }
 
-describe('full', () => {
+describe("full", () => {
   test("toTree creates root representation", () => {
     expect(toTree({}))
       .toEqual($("root", []));
@@ -18,4 +18,13 @@ describe('full', () => {
         ]));
   });
 
+  test("toTree creates representation for nested structure", () => {
+    expect(toTree({ ksi: { delta: "nile" } }))
+      .toEqual(
+        $("root", [
+          $("ksi", [
+            $("delta", "nile")
+          ])
+        ]));
+  });
 });

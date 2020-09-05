@@ -1,6 +1,15 @@
 type Value = Node[] | string | number;
 export type PossibleTypes = "object" | "array" | "value";
-export type Node = { params: { id: string, type: PossibleTypes, expanded: Boolean, selected: Boolean, enumerable: Boolean }, value: Value }
+export type Node = {
+  params: {
+    id: string;
+    type: PossibleTypes;
+    expanded: Boolean;
+    selected: Boolean;
+    enumerable: Boolean;
+  };
+  value: Value;
+};
 
 function isEnumerable(value: any) {
   return value instanceof Array || value instanceof Object;
@@ -19,16 +28,33 @@ function getType(value: any): PossibleTypes {
   }
 }
 
-function createEntry(id, value: Value, type: "object" | "array" | "value"): Node {
-  return { params: { id, expanded: false, selected: false, type, enumerable: isEnumerable(value) }, value };
+function createEntry(
+  id,
+  value: Value,
+  type: "object" | "array" | "value"
+): Node {
+  return {
+    params: {
+      id,
+      expanded: false,
+      selected: false,
+      type,
+      enumerable: isEnumerable(value),
+    },
+    value,
+  };
 }
 
 function explode(entry): Value {
   if (entry instanceof Object) {
-    return Object.entries(entry).map(([id, value]) => (createEntry(id, explode(value), getType(value))));
+    return Object.entries(entry).map(([id, value]) =>
+      createEntry(id, explode(value), getType(value))
+    );
   }
   if (entry instanceof Array) {
-    return Object.entries(entry).map(([id, value]) => (createEntry(id, explode(value), getType(value))));
+    return Object.entries(entry).map(([id, value]) =>
+      createEntry(id, explode(value), getType(value))
+    );
   }
   return entry;
 }

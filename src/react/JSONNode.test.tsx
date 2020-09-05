@@ -23,24 +23,26 @@ describe("Root Json Tests", () => {
   });
 
   test("Root Json Expands On Click", () => {
-    const sample = observable($("root", [$("door", "knob", false)]));
+    const sample = observable($("root", [
+      $("door", "knob", false, "value")
+    ], true, "object"));
     const render = mount(<JSONNode node={sample}/>);
     render.find("div > .elements .expander").simulate("click");
     expect(render.find(".elements .name").text()).toEqual("door");
   });
 
   describe("JSON Node Value Render", () => {
-    const createTest = (withValue : any, /*then*/ rendersThat : string) => {
+    const createTest = (withValue: any, /*then*/ rendersThat: string | number) => {
       test(`when Executed with ${withValue} then renders ${rendersThat}`, () => {
         expect(renderValue(withValue)).toEqual(rendersThat);
       });
     };
 
-    createTest("some string", "some string");
-    createTest({some: 'obj'}, "{}");
-    createTest(['some', 'array'], "[]");
-    createTest(2137, "2137");
-
+    createTest($("some", "string", true, "value"), "string");
+    createTest($("some", [], false, "object"), "{}");
+    createTest($("some", [], false, "array"), "[]");
+    createTest($("some", 2137, false, "value"), 2137);
+    createTest($("some", null, false, "value"), null);
   });
 });
 

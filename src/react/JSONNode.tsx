@@ -2,7 +2,16 @@ import * as React from "react";
 import { Node } from "../utils/ToTree";
 import { observer } from "mobx-react";
 
-export function renderValue(){}
+export function renderValue(input: Node): string {
+  switch (input.params.type) {
+    case "object":
+      return "{}";
+    case "array":
+      return "[]";
+    case "value":
+      return input.value as string;
+  }
+}
 
 export const JSONNode = observer((props: JSONNodeProps) => (
   <div>

@@ -44,6 +44,12 @@ describe("Root Json Tests", () => {
     createTest($("some", 2137, false, "value"), 2137);
     createTest($("some", null, false, "value"), null);
   });
+
+  test("JSON Node renders its value", () => {
+    const sample = observable($("root", [], false, "object"));
+    const render = shallow(<JSONNode node={sample}/>);
+    expect(render.find(".value").text()).toEqual("{}");
+  });
 });
 
 

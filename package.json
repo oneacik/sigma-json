@@ -4,11 +4,11 @@
   "description": "Boilerplate for MobX + React project with Typescript, ES6 compilation and hot code reloading",
   "scripts": {
     "start": "node server.js",
-    "prettify": "npx prettier -w 'src/**/*.{ts,tsx}'"
+    "prettify": "prettier -w 'src/**/*.{ts,tsx}'"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm prettify"
+      "pre-commit": "npm run prettify"
     }
   },
   "repository": {
@@ -28,18 +28,7 @@
     "url": "https://github.com/mobxjs/mobx/issues"
   },
   "homepage": "http://mobxjs.github.com/mobx",
-  "devDependencies": {
-    "@types/jest": "^26.0.13",
-    "@types/react-dom": "^16.9.8",
-    "awesome-typescript-loader": "^5.2.1",
-    "husky": "3.0.8",
-    "jsdom": "^16.4.0",
-    "jsdom-global": "^3.0.2",
-    "prettier": "^2.1.1",
-    "ts-jest": "^26.3.0",
-    "webpack": "^4.44.1",
-    "webpack-dev-server": "^3.11.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "enzyme": "^3.11.0",
@@ -49,6 +38,16 @@
     "mobx-react": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "@types/jest": "^26.0.13",
+    "@types/react-dom": "^16.9.8",
+    "awesome-typescript-loader": "^5.2.1",
+    "husky": "^3.1.0",
+    "jsdom": "^16.4.0",
+    "jsdom-global": "^3.0.2",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
+    "webpack": "^4.44.1",
+    "webpack-dev-server": "^3.11.0"
   }
 }

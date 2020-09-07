@@ -1,13 +1,14 @@
 type Value = Node[] | string | number;
 export type PossibleTypes = "object" | "array" | "value";
+export type Params = {
+  id: string;
+  type: PossibleTypes;
+  expanded: Boolean;
+  selected: Boolean;
+  enumerable: Boolean;
+};
 export type Node = {
-  params: {
-    id: string;
-    type: PossibleTypes;
-    expanded: Boolean;
-    selected: Boolean;
-    enumerable: Boolean;
-  };
+  params: Params;
   value: Value;
 };
 

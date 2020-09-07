@@ -1,4 +1,5 @@
 import { Node } from "./ToTree";
+import hash from "object-hash";
 
 export type NodeStripped = {
   [P in "params" | "value"]: P extends "params"
@@ -15,17 +16,10 @@ export function reset(elem: NodeStripped) {
 }
 
 function isCurrentPathMatching(
-  jsonPath: (string | number)[][],
+  jsonPath: Set<string>,
   currentPath: (string | number)[]
 ): Boolean {
-  return !!jsonPath.find(
-    (path) =>
-      path.length === currentPath.length &&
-      currentPath.reduce(
-        (matches, value, index) => matches && path[index] === value,
-        true
-      )
-  );
+  return jsonPath.has(hash(currentPath));
 }
 
 export function select(
@@ -33,10 +27,22 @@ export function select(
   jsonPaths: (string | number)[][],
   currentPath: (string | number)[] = ["$"]
 ) {
+  _select(
+    currentNode,
+    new Set(jsonPaths.map((jsonPath) => hash(jsonPath))),
+    currentPath
+  );
+}
+
+export function _select(
+  currentNode: NodeStripped,
+  jsonPaths: Set<string>,
+  currentPath: (string | number)[] = ["$"]
+) {
   currentNode.params.selected = isCurrentPathMatching(jsonPaths, currentPath);
   if (currentNode.value instanceof Array) {
     currentNode.value.forEach((nextNode) =>
-      select(nextNode, jsonPaths, [...currentPath, nextNode.params.id])
+      _select(nextNode, jsonPaths, [...currentPath, nextNode.params.id])
     );
   }
 }

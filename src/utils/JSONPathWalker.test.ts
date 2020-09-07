@@ -117,4 +117,28 @@ describe("JSONPathWalker resets correcly", () => {
       "J. R. R. Tolkien",
     ]);
   });
+
+  it("test select performance", () => {
+    console.time("json");
+    const json = {
+      ...new Array(100000)
+        .fill(0)
+        .map((value, index) => ({ ["idx" + index]: value })),
+    };
+    console.timeEnd("json");
+
+    console.time("tree");
+    const tree = toTree(json);
+    console.timeEnd("tree");
+
+    console.time("paths");
+    const paths = JSONPath.paths(json, "$..*");
+    console.timeEnd("paths");
+
+    console.time("select");
+    select(tree, paths);
+    console.timeEnd("select");
+  });
+
+  //TODO: Create test for performance and add tweaks to make it pass in time
 });

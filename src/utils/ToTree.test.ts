@@ -6,15 +6,15 @@ export function $(
   value,
   enumerable?: boolean | undefined,
   type?: PossibleTypes | undefined,
-  selected: boolean = false
+  selected: boolean = false,
 ) {
   return {
     params: {
       id,
       expanded: false,
       selected,
-      ...(enumerable !== undefined ? { enumerable: enumerable } : {}),
-      ...(type !== undefined ? { type: type } : {}),
+      ...(enumerable !== undefined ? { enumerable } : {}),
+      ...(type !== undefined ? { type } : {}),
     },
     value,
   };
@@ -27,25 +27,25 @@ describe("full", () => {
 
   test("toTree creates representation for non empty root", () => {
     expect(toTree({ ksi: "delta" })).toMatchObject(
-      $("root", [$("ksi", "delta")])
+      $("root", [$("ksi", "delta")]),
     );
   });
 
   test("toTree creates representation for nested structure", () => {
     expect(toTree({ ksi: { delta: "nile" } })).toMatchObject(
-      $("root", [$("ksi", [$("delta", "nile")])])
+      $("root", [$("ksi", [$("delta", "nile")])]),
     );
   });
 
   test("toTree serves array types", () => {
     expect(toTree({ arr: ["ksi"] })).toMatchObject(
-      $("root", [$("arr", [$("0", "ksi")])])
+      $("root", [$("arr", [$("0", "ksi")])]),
     );
   });
 
   test("toTree correctly handles enumerable property", () => {
     expect(toTree({ arr: ["ksi"] })).toMatchObject(
-      $("root", [$("arr", [$("0", "ksi", false)], true)], true)
+      $("root", [$("arr", [$("0", "ksi", false)], true)], true),
     );
   });
 
@@ -56,10 +56,8 @@ describe("full", () => {
       [{ x: null }, "value"],
       [{ x: [] }, "array"],
       [{ x: {} }, "object"],
-    ].forEach(([value, type]: [{ x: any }, string]) =>
-      test(`value '${value.x}' is mapped to correct type: ${type}`, () => {
-        expect((toTree(value).value[0] as Node).params.type).toBe(type);
-      })
-    );
+    ].forEach(([value, type]: [{ x: any }, string]) => test(`value '${value.x}' is mapped to correct type: ${type}`, () => {
+      expect((toTree(value).value[0] as Node).params.type).toBe(type);
+    }));
   });
 });

@@ -1,9 +1,9 @@
 import { shallow, configure, mount } from "enzyme";
-import { JSONNode, renderValue } from "./JSONNode";
 import * as React from "react";
 import Adapter from "enzyme-adapter-react-16";
-import { $ } from "../utils/ToTree.test";
 import { observable } from "mobx";
+import { $ } from "../utils/ToTree.test";
+import { JSONNode, renderValue } from "./JSONNode";
 import "jsdom-global/register";
 
 configure({ adapter: new Adapter() });
@@ -24,7 +24,7 @@ describe("Root Json Tests", () => {
 
   test("Root Json Expands On Click", () => {
     const sample = observable(
-      $("root", [$("door", "knob", false, "value")], true, "object")
+      $("root", [$("door", "knob", false, "value")], true, "object"),
     );
     const render = mount(<JSONNode node={sample} />);
     render.find("div > .elements .expander").simulate("click");
@@ -34,7 +34,7 @@ describe("Root Json Tests", () => {
   describe("JSON Node Value Render", () => {
     const createTest = (
       withValue: any,
-      /*then*/ rendersThat: string | number
+      /* then */ rendersThat: string | number,
     ) => {
       test(`when Executed with ${withValue} then renders ${rendersThat}`, () => {
         expect(renderValue(withValue)).toEqual(rendersThat);

@@ -1,9 +1,9 @@
+import { DeepPartial } from "ts-essentials";
 import { $ as elem } from "./ToTree.test";
 import { Node, PossibleTypes } from "./ToTree";
 import { NodeStripped, reset, select } from "./JSONPathWalker";
-import { DeepPartial } from "ts-essentials";
 
-//some of $ parameters are not important here for building mocks
+// some of $ parameters are not important here for building mocks
 function $(id, value, selected, type: PossibleTypes = "object"): NodeStripped {
   return elem(id, value, false, type, selected);
 }
@@ -34,7 +34,7 @@ describe("JSONPathWalker resets correcly", () => {
     const node: NodeStripped = $(
       "root",
       [$("X", [], false), $("Y", [], false)],
-      false
+      false,
     );
     select(node, [["$", "X"]]);
     expect(node).toMatchObject<DeepPartial<Node>>({
@@ -52,7 +52,7 @@ describe("JSONPathWalker resets correcly", () => {
     const node: NodeStripped = $(
       "root",
       [$("X", [], false), $("Y", [], false)],
-      false
+      false,
     );
     select(node, [["$", "X"]]);
     expect(node).toMatchObject<DeepPartial<Node>>({

@@ -1,6 +1,6 @@
 import { $ as elem } from "./ToTree.test";
 import { Node, PossibleTypes } from "./ToTree";
-import { NodeStripped, reset } from "./JSONPathWalker";
+import { NodeStripped, reset, select } from "./JSONPathWalker";
 import { DeepPartial } from "ts-essentials";
 
 //some of $ parameters are not important here for building mocks
@@ -44,6 +44,24 @@ describe("JSONPathWalker resets correcly", () => {
           params: { selected: true },
         },
         {},
+      ],
+    });
+  });
+
+  test("select nodes will not select unmatchable nodes", () => {
+    const node: NodeStripped = $(
+      "root",
+      [$("X", [], false), $("Y", [], false)],
+      false
+    );
+    select(node, [["$", "X"]]);
+    expect(node).toMatchObject<DeepPartial<Node>>({
+      params: { selected: false },
+      value: [
+        {},
+        {
+          params: { selected: false },
+        },
       ],
     });
   });

@@ -17,7 +17,8 @@ export const JSONNode = observer((props: JSONNodeProps) => (
   <div>
     <div className={"element"}>
       <div
-        onClick={() => (props.node.params.expanded = !props.node.params.expanded)
+        onClick={() =>
+          (props.node.params.expanded = !props.node.params.expanded)
         }
         className={"expander"}
       >
@@ -27,8 +28,8 @@ export const JSONNode = observer((props: JSONNodeProps) => (
       <div className={"value"}>{renderValue(props.node)}</div>
     </div>
     <div className={"elements"}>
-      {props.node.params.enumerable
-        && (props.node.value as Node[]).map((node) => (
+      {props.node.params.enumerable &&
+        (props.node.value as Node[]).map((node) => (
           <JSONNode key={props.node.params.id} node={node} />
         ))}
     </div>

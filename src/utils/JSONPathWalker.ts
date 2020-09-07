@@ -16,25 +16,28 @@ export function reset(elem: NodeStripped) {
 
 function isCurrentPathMatching(
   jsonPath: string[][],
-  currentPath: string[],
+  currentPath: string[]
 ): Boolean {
   return !!jsonPath.find(
-    (path) => path.length === currentPath.length
-      && currentPath.reduce(
+    (path) =>
+      path.length === currentPath.length &&
+      currentPath.reduce(
         (matches, value, index) => matches && path[index] === value,
-        true,
-      ),
+        true
+      )
   );
 }
 
 export function select(
   currentNode: NodeStripped,
   jsonPaths: string[][],
-  currentPath: string[] = ["$"],
+  currentPath: string[] = ["$"]
 ) {
   currentNode.params.selected = isCurrentPathMatching(jsonPaths, currentPath);
   if (currentNode.value instanceof Array) {
-    currentNode.value.forEach((nextNode) => select(nextNode, jsonPaths, [...currentPath, nextNode.params.id]));
+    currentNode.value.forEach((nextNode) =>
+      select(nextNode, jsonPaths, [...currentPath, nextNode.params.id])
+    );
   }
 }
 

@@ -34,7 +34,7 @@ describe("JSONPathWalker resets correcly", () => {
     const node: NodeStripped = $(
       "root",
       [$("X", [], false), $("Y", [], false)],
-      false,
+      false
     );
     select(node, [["$", "X"]]);
     expect(node).toMatchObject<DeepPartial<Node>>({
@@ -52,7 +52,7 @@ describe("JSONPathWalker resets correcly", () => {
     const node: NodeStripped = $(
       "root",
       [$("X", [], false), $("Y", [], false)],
-      false,
+      false
     );
     select(node, [["$", "X"]]);
     expect(node).toMatchObject<DeepPartial<Node>>({

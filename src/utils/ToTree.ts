@@ -32,7 +32,7 @@ function getType(value: any): PossibleTypes {
 function createEntry(
   id,
   value: Value,
-  type: "object" | "array" | "value",
+  type: "object" | "array" | "value"
 ): Node {
   return {
     params: {
@@ -48,10 +48,14 @@ function createEntry(
 
 function explode(entry): Value {
   if (entry instanceof Object) {
-    return Object.entries(entry).map(([id, value]) => createEntry(id, explode(value), getType(value)));
+    return Object.entries(entry).map(([id, value]) =>
+      createEntry(id, explode(value), getType(value))
+    );
   }
   if (entry instanceof Array) {
-    return Object.entries(entry).map(([id, value]) => createEntry(id, explode(value), getType(value)));
+    return Object.entries(entry).map(([id, value]) =>
+      createEntry(id, explode(value), getType(value))
+    );
   }
   return entry;
 }

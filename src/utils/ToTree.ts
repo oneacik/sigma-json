@@ -1,7 +1,7 @@
 type Value = Node[] | string | number;
 export type PossibleTypes = "object" | "array" | "value";
 export type Params = {
-  id: string;
+  id: string | number;
   type: PossibleTypes;
   expanded: Boolean;
   selected: Boolean;
@@ -30,7 +30,7 @@ function getType(value: any): PossibleTypes {
 }
 
 function createEntry(
-  id,
+  id: string | number,
   value: Value,
   type: "object" | "array" | "value"
 ): Node {
@@ -47,12 +47,12 @@ function createEntry(
 }
 
 function explode(entry): Value {
-  if (entry instanceof Object) {
-    return Object.entries(entry).map(([id, value]) =>
+  if (entry instanceof Array) {
+    return entry.map((value, id) =>
       createEntry(id, explode(value), getType(value))
     );
   }
-  if (entry instanceof Array) {
+  if (entry instanceof Object) {
     return Object.entries(entry).map(([id, value]) =>
       createEntry(id, explode(value), getType(value))
     );

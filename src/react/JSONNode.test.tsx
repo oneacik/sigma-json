@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 
 describe("Root Json Tests", () => {
   test("Root Json Node", () => {
-    const sample = observable($("root", [])) as Node;
+    const sample = observable($("root", []) as Node);
     const render = shallow(<JSONNode node={sample} />);
     expect(render.find("div div.name").text()).toEqual("root");
   });

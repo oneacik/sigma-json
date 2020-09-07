@@ -39,13 +39,13 @@ describe("full", () => {
 
   test("toTree serves array types", () => {
     expect(toTree({ arr: ["ksi"] })).toMatchObject(
-      $("root", [$("arr", [$("0", "ksi")])])
+      $("root", [$("arr", [$(0, "ksi")])])
     );
   });
 
   test("toTree correctly handles enumerable property", () => {
     expect(toTree({ arr: ["ksi"] })).toMatchObject(
-      $("root", [$("arr", [$("0", "ksi", false)], true)], true)
+      $("root", [$("arr", [$(0, "ksi", false)], true)], true)
     );
   });
 

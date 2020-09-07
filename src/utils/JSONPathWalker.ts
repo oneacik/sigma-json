@@ -15,8 +15,8 @@ export function reset(elem: NodeStripped) {
 }
 
 function isCurrentPathMatching(
-  jsonPath: string[][],
-  currentPath: string[]
+  jsonPath: (string | number)[][],
+  currentPath: (string | number)[]
 ): Boolean {
   return !!jsonPath.find(
     (path) =>
@@ -30,8 +30,8 @@ function isCurrentPathMatching(
 
 export function select(
   currentNode: NodeStripped,
-  jsonPaths: string[][],
-  currentPath: string[] = ["$"]
+  jsonPaths: (string | number)[][],
+  currentPath: (string | number)[] = ["$"]
 ) {
   currentNode.params.selected = isCurrentPathMatching(jsonPaths, currentPath);
   if (currentNode.value instanceof Array) {

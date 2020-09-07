@@ -3,45 +3,47 @@ import { Node, PossibleTypes, toTree } from "./ToTree";
 export function $(
   id,
   value,
-  enumerable = true,
-  type: PossibleTypes = "value"
-): Node {
+  enumerable?: boolean | undefined,
+  type?: PossibleTypes | undefined
+): object {
   return {
-    params: { id, expanded: false, selected: false, enumerable, type },
+    params: {
+      id,
+      expanded: false,
+      selected: false,
+      ...(enumerable !== undefined ? { enumerable: enumerable } : {}),
+      ...(type !== undefined ? { type: type } : {}),
+    },
     value,
   };
 }
 
 describe("full", () => {
   test("toTree creates root representation", () => {
-    expect(toTree({})).toEqual($("root", [], true, "object"));
+    expect(toTree({})).toMatchObject($("root", []));
   });
 
   test("toTree creates representation for non empty root", () => {
-    expect(toTree({ ksi: "delta" })).toEqual(
-      $("root", [$("ksi", "delta", false)], true, "object")
+    expect(toTree({ ksi: "delta" })).toMatchObject(
+      $("root", [$("ksi", "delta")])
     );
   });
 
   test("toTree creates representation for nested structure", () => {
-    expect(toTree({ ksi: { delta: "nile" } })).toEqual(
-      $(
-        "root",
-        [$("ksi", [$("delta", "nile", false)], true, "object")],
-        true,
-        "object"
-      )
+    expect(toTree({ ksi: { delta: "nile" } })).toMatchObject(
+      $("root", [$("ksi", [$("delta", "nile")])])
     );
   });
 
   test("toTree serves array types", () => {
-    expect(toTree({ arr: ["ksi"] })).toEqual(
-      $(
-        "root",
-        [$("arr", [$("0", "ksi", false)], true, "array")],
-        true,
-        "object"
-      )
+    expect(toTree({ arr: ["ksi"] })).toMatchObject(
+      $("root", [$("arr", [$("0", "ksi")])])
+    );
+  });
+
+  test("toTree correctly handles enumerable property", () => {
+    expect(toTree({ arr: ["ksi"] })).toMatchObject(
+      $("root", [$("arr", [$("0", "ksi", false)], true)], true)
     );
   });
 

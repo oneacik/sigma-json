@@ -1,12 +1,13 @@
 import { Node, PossibleTypes, toTree } from "./ToTree";
 
+// This function changes its signature so often that I do not define the type
 export function $(
   id,
   value,
   enumerable?: boolean | undefined,
   type?: PossibleTypes | undefined,
   selected: boolean = false
-): object {
+) {
   return {
     params: {
       id,

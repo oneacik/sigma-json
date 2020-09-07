@@ -9,6 +9,7 @@ export type NodeStripped = {
 // NON PURE!
 export function reset(elem: NodeStripped) {
   elem.params.selected = false;
+  elem.value instanceof Array ? elem.value.forEach(reset) : null;
 }
 
 type SelectableNode<K extends keyof T, T = Node> = {

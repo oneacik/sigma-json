@@ -29,4 +29,22 @@ describe("JSONPathWalker resets correcly", () => {
       ],
     });
   });
+
+  test("select nodes will select matchable nodes", () => {
+    const node: NodeStripped = $(
+      "root",
+      [$("X", [], false), $("Y", [], false)],
+      false
+    );
+    select(node, [["$", "X"]]);
+    expect(node).toMatchObject<DeepPartial<Node>>({
+      params: { selected: false },
+      value: [
+        {
+          params: { selected: true },
+        },
+        {},
+      ],
+    });
+  });
 });

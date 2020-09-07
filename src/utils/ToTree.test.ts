@@ -4,13 +4,14 @@ export function $(
   id,
   value,
   enumerable?: boolean | undefined,
-  type?: PossibleTypes | undefined
+  type?: PossibleTypes | undefined,
+  selected: boolean = false
 ): object {
   return {
     params: {
       id,
       expanded: false,
-      selected: false,
+      selected,
       ...(enumerable !== undefined ? { enumerable: enumerable } : {}),
       ...(type !== undefined ? { type: type } : {}),
     },

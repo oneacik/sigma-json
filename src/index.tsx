@@ -1,41 +1,35 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { JSONNode } from "./react/JSONNode";
+import { Node, PossibleTypes } from "./utils/ToTree";
 import { observable } from "mobx";
-import { observer } from "mobx-react";
 
-class AppState {
-  @observable timer = 0;
-
-  constructor() {
-    setInterval(() => {
-      this.timer += 1;
-    }, 1000);
-  }
-
-  resetTimer() {
-    this.timer = 0;
-  }
-}
-
-@observer
-class TimerView extends React.Component<{ appState: AppState }, {}> {
-  render() {
-    return (
-      <div>
-        <button onClick={this.onReset}>
-          Seconds passed: {this.props.appState.timer}
-        </button>
-      </div>
-    );
-  }
-
-  onReset = () => {
-    this.props.appState.resetTimer();
+function $(
+  id,
+  value,
+  enumerable?: boolean | undefined,
+  type?: PossibleTypes | undefined,
+  selected: boolean = false
+) {
+  return {
+    params: {
+      id,
+      expanded: false,
+      selected,
+      ...(enumerable !== undefined ? { enumerable } : {}),
+      ...(type !== undefined ? { type } : {}),
+    },
+    value,
   };
 }
 
-const appState = new AppState();
+const sampleTree = observable({
+  x: $("root", [$("door", "knob", false, "value")], true, "object") as Node,
+});
+
 ReactDOM.render(
-  <TimerView appState={appState} />,
+  <div>
+    <JSONNode node={sampleTree.x} />
+  </div>,
   document.getElementById("root")
 );

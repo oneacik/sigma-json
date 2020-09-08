@@ -28,7 +28,8 @@ describe("Root Json Tests", () => {
       $("root", [$("door", "knob", false, "value")], true, "object")
     ) as Node;
     const render = mount(<JSONNode node={sample} />);
-    render.find("div > .elements .expander").simulate("click");
+    expect(render.find(".elements .name").length).toEqual(0);
+    render.find("div > .element .expander").simulate("click");
     expect(render.find(".elements .name").text()).toEqual("door");
   });
 

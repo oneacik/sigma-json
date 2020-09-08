@@ -28,7 +28,7 @@ export const JSONNode = observer((props: JSONNodeProps) => (
       <div className={"value"}>{renderValue(props.node)}</div>
     </div>
     <div className={"elements"}>
-      {props.node.params.enumerable &&
+      {props.node.params.expanded &&
         (props.node.value as Node[]).map((node) => (
           <JSONNode key={props.node.params.id} node={node} />
         ))}

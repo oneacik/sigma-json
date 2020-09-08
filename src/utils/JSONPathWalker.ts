@@ -34,7 +34,7 @@ export function select(
   );
 }
 
-export function _select(
+function _select(
   currentNode: NodeStripped,
   jsonPaths: Set<string>,
   currentPath: (string | number)[] = ["$"]

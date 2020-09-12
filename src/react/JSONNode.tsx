@@ -13,30 +13,31 @@ export function renderValue(input: Node): string {
   }
 }
 
-export const JSONNode = observer((props: JSONNodeProps) => (
-  <div>
-    <div className={"element"}>
-      {props.node.params.enumerable && (
-        <div
-          onClick={() =>
-            (props.node.params.expanded = !props.node.params.expanded)
-          }
-          className={"expander"}
-        >
-          +
-        </div>
-      )}
-      <div className={"name"}>{props.node.params.id}</div>
-      <div className={"value"}>{renderValue(props.node)}</div>
+export const JSONNode = observer(({ node }: JSONNodeProps) => {
+  console.warn("XD");
+  return (
+    <div>
+      <div className={"element"}>
+        {node.params.enumerable && (
+          <div
+            onClick={() => (node.params.expanded = !node.params.expanded)}
+            className={"expander"}
+          >
+            +
+          </div>
+        )}
+        <div className={"name"}>{node.params.id}</div>
+        <div className={"value"}>{renderValue(node)}</div>
+      </div>
+      <div className={"elements"}>
+        {node.params.expanded &&
+          (node.value as Node[]).map((childNode) => (
+            <JSONNode key={childNode.params.id} node={childNode} />
+          ))}
+      </div>
     </div>
-    <div className={"elements"}>
-      {props.node.params.expanded &&
-        (props.node.value as Node[]).map((node) => (
-          <JSONNode key={props.node.params.id} node={node} />
-        ))}
-    </div>
-  </div>
-));
+  );
+});
 
 interface JSONNodeProps {
   node: Node;

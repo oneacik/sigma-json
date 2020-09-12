@@ -1,8 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { observable } from "mobx";
+import { autorun, observable, reaction } from "mobx";
+import { observer } from "mobx-react";
 import { JSONNode } from "./react/JSONNode";
-import { Node, PossibleTypes } from "./utils/ToTree";
+import { Node, PossibleTypes, toTree } from "./utils/ToTree";
+import { FileUpload } from "./react/FileUpload";
 
 function $(
   id,
@@ -23,13 +25,31 @@ function $(
   };
 }
 
-const sampleTree = observable({
-  x: $("root", [$("door", "knob", false, "value")], true, "object") as Node,
-});
-
-ReactDOM.render(
-  <div>
-    <JSONNode node={sampleTree.x} />
-  </div>,
-  document.getElementById("root")
+const sampleTree = $(
+  "root",
+  [$("door", "knob", false, "value")],
+  true,
+  "object"
+) as Node;
+const state = observable({ json: "", stateTree: sampleTree });
+reaction(
+  () => state.json,
+  () => {
+    try {
+      const objectToView = JSON.parse(state.json);
+      state.stateTree = toTree(objectToView);
+    } catch (e) {
+      console.error(e);
+    }
+    console.warn(state.stateTree);
+  }
 );
+
+const Page = observer(() => (
+  <div>
+    <FileUpload handler={(x) => (state.json = x)} />
+    <JSONNode node={state.stateTree} />
+  </div>
+));
+
+ReactDOM.render(<Page />, document.getElementById("root"));

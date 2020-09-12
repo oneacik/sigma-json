@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { observable } from "mobx";
 import { JSONNode } from "./react/JSONNode";
 import { Node, PossibleTypes } from "./utils/ToTree";
-import { observable } from "mobx";
 
 function $(
   id,

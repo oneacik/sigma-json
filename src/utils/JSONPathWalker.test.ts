@@ -1,8 +1,8 @@
 import { DeepPartial } from "ts-essentials";
+import JSONPath from "jsonpath";
 import { $ as elem } from "./ToTree.test";
 import { Node, PossibleTypes, toTree } from "./ToTree";
 import { NodeStripped, reset, select } from "./JSONPathWalker";
-import JSONPath from "jsonpath";
 
 // some of $ parameters are not important here for building mocks
 function $(id, value, selected, type: PossibleTypes = "object"): NodeStripped {
@@ -123,7 +123,7 @@ describe("JSONPathWalker resets correcly", () => {
     const json = {
       ...new Array(100000)
         .fill(0)
-        .map((value, index) => ({ ["idx" + index]: value })),
+        .map((value, index) => ({ [`idx${index}`]: value })),
     };
     console.timeEnd("json");
 
@@ -140,5 +140,5 @@ describe("JSONPathWalker resets correcly", () => {
     console.timeEnd("select");
   });
 
-  //TODO: Create test for performance and add tweaks to make it pass in time
+  // TODO: Create test for performance and add tweaks to make it pass in time
 });

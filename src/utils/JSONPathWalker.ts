@@ -1,5 +1,5 @@
-import { Node } from "./ToTree";
 import hash from "object-hash";
+import { Node } from "./ToTree";
 
 export type NodeStripped = {
   [P in "params" | "value"]: P extends "params"

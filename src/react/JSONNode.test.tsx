@@ -33,6 +33,12 @@ describe("Root Json Tests", () => {
     expect(render.find(".elements .name").text()).toEqual("door");
   });
 
+  test("Node won't expand when not enumerable", () => {
+    const sample = observable($("root", [], false, "object")) as Node;
+    const render = mount(<JSONNode node={sample} />);
+    expect(render.find("div > .element .expander").length).toBe(0);
+  });
+
   describe("JSON Node Value Render", () => {
     const createTest = (
       withValue: any,

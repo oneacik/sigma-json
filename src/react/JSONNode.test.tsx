@@ -17,7 +17,7 @@ describe("Root Json Tests", () => {
   });
 
   test("Root Json Modifies Expanded On Click", () => {
-    const sample = observable($("root", [])) as Node;
+    const sample = observable($("root", [], true)) as Node;
     const render = shallow(<JSONNode node={sample} />);
     render.find(".expander").simulate("click");
     expect(sample.params.expanded).toBeTruthy();

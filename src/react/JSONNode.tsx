@@ -16,14 +16,16 @@ export function renderValue(input: Node): string {
 export const JSONNode = observer((props: JSONNodeProps) => (
   <div>
     <div className={"element"}>
-      <div
-        onClick={() =>
-          (props.node.params.expanded = !props.node.params.expanded)
-        }
-        className={"expander"}
-      >
-        +
-      </div>
+      {props.node.params.enumerable && (
+        <div
+          onClick={() =>
+            (props.node.params.expanded = !props.node.params.expanded)
+          }
+          className={"expander"}
+        >
+          +
+        </div>
+      )}
       <div className={"name"}>{props.node.params.id}</div>
       <div className={"value"}>{renderValue(props.node)}</div>
     </div>

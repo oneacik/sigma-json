@@ -2,9 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { autorun, observable, reaction } from "mobx";
 import { observer } from "mobx-react";
-import { JSONNode } from "./react/JSONNode";
-import { Node, PossibleTypes, toTree } from "./utils/ToTree";
-import { FileUpload } from "./react/FileUpload";
+import { JSONNode } from "../node/JSONNode";
+import { Node, PossibleTypes, toTree } from "../../utils/ToTree";
+import { FileUpload } from "../upload/FileUpload";
 
 function $(
   id,

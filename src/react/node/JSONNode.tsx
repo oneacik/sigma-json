@@ -1,6 +1,6 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-import { Node } from "../utils/ToTree";
+import { Node } from "../../utils/ToTree";
 
 export function renderValue(input: Node): string {
   switch (input.params.type) {

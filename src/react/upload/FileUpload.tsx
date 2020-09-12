@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 import { ChangeEventHandler } from "react";
-import { Node } from "../utils/ToTree";
+import { Node } from "../../utils/ToTree";
 
 const handleFileEvent = (handler: (fileContents: string) => void) => (x) => {
   const fileList = x.target.files;

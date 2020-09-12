@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
-    './src/index',
+    './src/react/main/index',
   ],
   output: {
     path: path.join(__dirname, 'dist'),

@@ -2,10 +2,10 @@ import { shallow, configure, mount } from "enzyme";
 import * as React from "react";
 import Adapter from "enzyme-adapter-react-16";
 import { observable } from "mobx";
-import { $ } from "../utils/ToTree.test";
+import { $ } from "../../utils/ToTree.test";
 import { JSONNode, renderValue } from "./JSONNode";
 import "jsdom-global/register";
-import { Node } from "../utils/ToTree";
+import { Node } from "../../utils/ToTree";
 
 configure({ adapter: new Adapter() });
 

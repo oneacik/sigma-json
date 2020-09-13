@@ -5,6 +5,10 @@ import { observer } from "mobx-react";
 import { JSONNode } from "../node/JSONNode";
 import { Node, PossibleTypes, toTree } from "../../utils/ToTree";
 import { FileUpload } from "../upload/FileUpload";
+import { createInitialDelayedInputState, DelayedInput } from "../input/DelayedInput";
+import JSONPath from "jsonpath";
+import { select } from "../../utils/JSONPathWalker";
+
 
 function $(
   id,
@@ -19,9 +23,9 @@ function $(
       expanded: false,
       selected,
       ...(enumerable !== undefined ? { enumerable } : {}),
-      ...(type !== undefined ? { type } : {}),
+      ...(type !== undefined ? { type } : {})
     },
-    value,
+    value
   };
 }
 
@@ -32,7 +36,18 @@ const sampleTree = $(
   "object"
 ) as Node;
 
-const state = observable({ json: "", stateTree: sampleTree });
+const state = observable({
+  json: "",
+  stateTree: sampleTree,
+  stateJsonPath: createInitialDelayedInputState()
+});
+
+reaction(() => [state.json, state.stateJsonPath], () => {
+    console.log(state.stateJsonPath.delayedValue);
+    const paths = JSONPath.paths(state.json, state.stateJsonPath.delayedValue);
+    select(state.stateTree, paths);
+  }
+);
 
 reaction(
   () => state.json,
@@ -50,6 +65,14 @@ reaction(
 const Page = observer(() => (
   <div>
     <FileUpload handler={(x) => (state.json = x)} />
+    <DelayedInput validator={(x) => {
+      try {
+        JSONPath.parse(x);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }} stateReference={state.stateJsonPath} />
     <JSONNode node={state.stateTree} />
   </div>
 ));

@@ -1,4 +1,4 @@
-import { configure, mount, shallow } from "enzyme";
+import { configure, mount } from "enzyme";
 import { createInitialDelayedInputState, DelayedInput } from "./DelayedInput";
 import React from "react";
 import { observable } from "mobx";
@@ -50,5 +50,42 @@ describe("DelayedInput tests", () => {
     timer.tick(5000); // horrible debounce!
 
     expect(stateReference.delayedValue).toBe("");
+  });
+
+  test("DelayedInput should change component class to notyet when value is inputted", () => {
+    const stateReference = observable(createInitialDelayedInputState());
+    const input = mount(
+      <DelayedInput validator={() => false} stateReference={stateReference} />
+    );
+
+    input.find("input").simulate("change", { target: { value: "smth" } });
+
+    expect(input.find(".notyet").length).toBe(1);
+  });
+
+  test("DelayedInput should change component class to valid when valid value is inputted after delay", () => {
+    const stateReference = observable(createInitialDelayedInputState());
+    const input = mount(
+      <DelayedInput validator={() => true} stateReference={stateReference} />
+    );
+
+    input.find("input").simulate("change", { target: { value: "smth" } });
+    timer.tick(5000);
+    input.update();
+
+    expect(input.childAt(0).hasClass("valid")).toBeTruthy();
+  });
+
+  test("DelayedInput should change component class to invalid when invalid value is inputted after delay", () => {
+    const stateReference = observable(createInitialDelayedInputState());
+    const input = mount(
+      <DelayedInput validator={() => false} stateReference={stateReference} />
+    );
+
+    input.find("input").simulate("change", { target: { value: "smth" } });
+    timer.tick(5000);
+    input.update();
+
+    expect(input.childAt(0).hasClass("invalid")).toBeTruthy();
   });
 });

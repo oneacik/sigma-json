@@ -14,9 +14,9 @@ export function $(
       expanded: false,
       selected,
       ...(enumerable !== undefined ? { enumerable } : {}),
-      ...(type !== undefined ? { type } : {}),
+      ...(type !== undefined ? { type } : {})
     },
-    value,
+    value
   };
 }
 
@@ -43,7 +43,7 @@ describe("full", () => {
     );
   });
 
-  test("toTree correctly handles enumerable property", () => {
+  test("toTree correctly handles enumerable property with types", () => {
     expect(toTree({ arr: ["ksi"] })).toMatchObject(
       $("root", [$("arr", [$(0, "ksi", false)], true)], true)
     );
@@ -55,11 +55,23 @@ describe("full", () => {
       [{ x: 2 }, "value"],
       [{ x: null }, "value"],
       [{ x: [] }, "array"],
-      [{ x: {} }, "object"],
+      [{ x: {} }, "object"]
     ].forEach(([value, type]: [{ x: any }, string]) =>
       test(`value '${value.x}' is mapped to correct type: ${type}`, () => {
         expect((toTree(value).value[0] as Node).params.type).toBe(type);
       })
+    );
+  });
+
+  test("toTree correctly handles enumerable property with empty array", () => {
+    expect(toTree({ arr: [] })).toMatchObject(
+      $("root", [$("arr", [], false)], true)
+    );
+  });
+
+  test("toTree correctly handles enumerable property with empty object", () => {
+    expect(toTree({ arr: {} })).toMatchObject(
+      $("root", [$("arr", [], false)], true)
     );
   });
 });

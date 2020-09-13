@@ -1,19 +1,18 @@
 import React from "react";
 import _ from "lodash";
+import { observer } from "mobx-react";
 
 const updateDelayed = _.debounce(
   (value: string, delayedInputProps: DelayedInputProps) => {
     if (delayedInputProps.validator(value)) {
-      delayedInputProps.stateReference = {
-        ...delayedInputProps.stateReference,
+      Object.assign(delayedInputProps.stateReference, {
         delayedValue: value,
         validity: "valid",
-      };
+      });
     } else {
-      delayedInputProps.stateReference = {
-        ...delayedInputProps.stateReference,
+      Object.assign(delayedInputProps.stateReference, {
         validity: "invalid",
-      };
+      });
     }
   },
   2000
@@ -21,15 +20,14 @@ const updateDelayed = _.debounce(
 
 const change = (value: string, delayedInputProps: DelayedInputProps) => {
   // for one time reconcillation
-  delayedInputProps.stateReference = {
-    ...delayedInputProps.stateReference,
+  Object.assign(delayedInputProps.stateReference, {
     fieldValue: value,
     validity: "notyet",
-  };
-  updateDelayed(value, delayedInputProps);
+  });
+  //updateDelayed(value, delayedInputProps);
 };
 
-const DelayedInput = (props: DelayedInputProps) => (
+export const DelayedInput = observer((props: DelayedInputProps) => (
   <div className={`input ${props.stateReference.validity}`}>
     <input
       type={"text"}
@@ -37,7 +35,7 @@ const DelayedInput = (props: DelayedInputProps) => (
       onChange={(evt) => change(evt.target.value, props)}
     />
   </div>
-);
+));
 
 interface DelayedInputProps {
   validator: (text: string) => boolean;

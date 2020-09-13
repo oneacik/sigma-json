@@ -1,15 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { autorun, observable, reaction } from "mobx";
+import { observable, reaction } from "mobx";
 import { observer } from "mobx-react";
-import { JSONNode } from "../node/JSONNode";
-import { Node, PossibleTypes, toTree } from "../../utils/ToTree";
-import { FileUpload } from "../upload/FileUpload";
-import {
-  createInitialDelayedInputState,
-  DelayedInput,
-} from "../input/DelayedInput";
 import JSONPath from "jsonpath";
+import { JSONNode } from "../node/JSONNode";
+import { toTree } from "../../utils/ToTree";
+import { FileUpload } from "../upload/FileUpload";
+import { createInitialDelayedInputState, DelayedInput } from "../input/DelayedInput";
 import { select } from "../../utils/JSONPathWalker";
 import "./Main.css";
 import { Container } from "../node/Container";

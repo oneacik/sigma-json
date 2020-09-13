@@ -9,7 +9,7 @@ import timers from "@sinonjs/fake-timers";
 configure({ adapter: new Adapter() });
 
 describe("DelayedInput tests", () => {
-  var timer;
+  let timer;
   beforeAll(() => {
     timer = timers.install();
   });

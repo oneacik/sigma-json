@@ -24,7 +24,7 @@ const change = (value: string, delayedInputProps: DelayedInputProps) => {
     fieldValue: value,
     validity: "notyet",
   });
-  //updateDelayed(value, delayedInputProps);
+  updateDelayed(value, delayedInputProps);
 };
 
 export const DelayedInput = observer((props: DelayedInputProps) => (

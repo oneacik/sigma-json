@@ -61,4 +61,10 @@ describe("Root Json Tests", () => {
     const render = shallow(<JSONNode node={sample} />);
     expect(render.find(".value").text()).toEqual("{}");
   });
+
+  test("JSON Node renders adds selected class when selected", () => {
+    const sample = observable($("root", [], false, "object", true)) as Node;
+    const render = shallow(<JSONNode node={sample} />);
+    expect(render.find(".element.selected").length).toBe(1);
+  });
 });

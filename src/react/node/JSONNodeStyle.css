@@ -1,0 +1,39 @@
+
+:root {
+    --tinish: 0.02rem;
+    --tiny: 0.2rem;
+    --small: 1rem;
+    --medium: 1.2rem;
+    --big: 1.6rem;
+}
+
+.element {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+    align-items: center;
+}
+
+.element > .expander, .name, .value {
+    padding-left: var(--tiny);
+}
+
+.element > .expander {
+    padding-left: 0;
+    width: var(--medium);
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.element > .name {
+    font-weight: bold
+}
+
+.element > .value {
+    font-weight: lighter;
+    color: gray;
+}
+
+.elements {
+    padding-left: var(--medium);
+}

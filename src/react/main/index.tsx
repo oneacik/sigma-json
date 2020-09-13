@@ -31,7 +31,9 @@ const sampleTree = $(
   true,
   "object"
 ) as Node;
+
 const state = observable({ json: "", stateTree: sampleTree });
+
 reaction(
   () => state.json,
   () => {

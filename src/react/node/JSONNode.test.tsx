@@ -13,7 +13,7 @@ describe("Root Json Tests", () => {
   test("Root Json Node", () => {
     const sample = observable($("root", []) as Node);
     const render = shallow(<JSONNode node={sample} />);
-    expect(render.find("div div.name").text()).toEqual("root");
+    expect(render.find("div div.name").text()).toContain("root");
   });
 
   test("Root Json Modifies Expanded On Click", () => {
@@ -30,7 +30,7 @@ describe("Root Json Tests", () => {
     const render = mount(<JSONNode node={sample} />);
     expect(render.find(".elements .name").length).toEqual(0);
     render.find("div > .element .expander").simulate("click");
-    expect(render.find(".elements .name").text()).toEqual("door");
+    expect(render.find(".elements .name").text()).toContain("door");
   });
 
   test("Node won't expand when not enumerable", () => {

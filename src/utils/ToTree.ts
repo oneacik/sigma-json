@@ -13,7 +13,10 @@ export type Node = {
 };
 
 function isEnumerable(value: any) {
-  return value instanceof Array || value instanceof Object;
+  return (
+    (value instanceof Array && value.length > 0) ||
+    (value instanceof Object && Object.keys(value).length > 0)
+  );
 }
 
 function getType(value: any): PossibleTypes {

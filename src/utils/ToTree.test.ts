@@ -14,9 +14,9 @@ export function $(
       expanded: false,
       selected,
       ...(enumerable !== undefined ? { enumerable } : {}),
-      ...(type !== undefined ? { type } : {})
+      ...(type !== undefined ? { type } : {}),
     },
-    value
+    value,
   };
 }
 
@@ -55,7 +55,7 @@ describe("full", () => {
       [{ x: 2 }, "value"],
       [{ x: null }, "value"],
       [{ x: [] }, "array"],
-      [{ x: {} }, "object"]
+      [{ x: {} }, "object"],
     ].forEach(([value, type]: [{ x: any }, string]) =>
       test(`value '${value.x}' is mapped to correct type: ${type}`, () => {
         expect((toTree(value).value[0] as Node).params.type).toBe(type);

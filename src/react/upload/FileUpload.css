@@ -19,3 +19,11 @@
     width: 100%;
     cursor: pointer;
 }
+
+.file-upload.valid{
+    border-color: green;
+}
+
+.file-upload.invalid{
+    border-color: red;
+}

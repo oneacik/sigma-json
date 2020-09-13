@@ -5,14 +5,14 @@ import { observer } from "mobx-react";
 import JSONPath from "jsonpath";
 import { JSONNode } from "../node/JSONNode";
 import { toTree } from "../../utils/ToTree";
-import { FileUpload } from "../upload/FileUpload";
+import { createFileUploadState, FileUpload } from "../upload/FileUpload";
 import { createInitialDelayedInputState, DelayedInput } from "../input/DelayedInput";
 import { select } from "../../utils/JSONPathWalker";
 import "./Main.css";
 import { Container } from "../node/Container";
 
 const state = observable({
-  json: "{}",
+  fileUpload: createFileUploadState(),
   stateTree: toTree({}),
   stateJsonPath: createInitialDelayedInputState(),
 });
@@ -21,7 +21,7 @@ reaction(
   () => [state.stateJsonPath.delayedValue, state.stateTree],
   () => {
     const paths = JSONPath.paths(
-      JSON.parse(state.json),
+      JSON.parse(state.fileUpload.fileContents),
       state.stateJsonPath.delayedValue
     );
     select(state.stateTree, paths);
@@ -29,10 +29,10 @@ reaction(
 );
 
 reaction(
-  () => state.json,
+  () => state.fileUpload.fileContents,
   () => {
     try {
-      const objectToView = JSON.parse(state.json);
+      const objectToView = JSON.parse(state.fileUpload.fileContents);
       state.stateTree = toTree(objectToView);
     } catch (e) {
       console.error(e);
@@ -44,7 +44,7 @@ reaction(
 const Page = observer(() => (
   <div className={"main"}>
     <div className={"line"}>
-      <FileUpload handler={(x) => (state.json = x)} />
+      <FileUpload state={state.fileUpload} />
       <DelayedInput
         validator={(x) => {
           try {

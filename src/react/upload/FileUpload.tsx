@@ -1,33 +1,71 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { ChangeEventHandler } from "react";
-import { Node } from "../../utils/ToTree";
 import "./FileUpload.css";
 
-const handleFileEvent = (handler: (fileContents: string) => void) => (x) => {
-  const fileList = x.target.files;
+const validateJSON = (content) => {
+  try {
+    JSON.parse(content);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+const handleFileEvent = (event, x: FileUploadState) => {
+  const fileList = event.target.files;
   const fileReader = new FileReader();
 
   fileReader.onload = (event) => {
-    handler(event.target.result as string);
+    const content = event.target.result as string;
+    const validated = validateJSON(content);
+    if (validated) {
+      Object.assign(x, {
+        loading: false,
+        validity: "valid",
+        fileContents: content,
+      });
+    } else {
+      Object.assign(x, { loading: false, validity: "invalid" });
+    }
   };
 
-  fileList.length > 0 && fileReader.readAsText(fileList[0]);
+  fileReader.onerror = () => {
+    Object.assign(x, { loading: false, validity: "invalid" });
+  };
+  fileReader.onabort = () => {
+    Object.assign(x, { loading: false, validity: "invalid" });
+  };
+
+  if (fileList.length > 0) {
+    x.loading = true;
+    fileReader.readAsText(fileList[0]);
+  }
 };
 
-export const FileUpload = observer(({ handler }: JSONNodeProps) => (
-  <div className={"file-upload"}>
-    <label htmlFor="file-input">↓</label>
+export const FileUpload = observer(({ state }: JSONNodeProps) => (
+  <div className={`file-upload ${state.validity}`}>
+    <label htmlFor="file-input">{state.loading ? "⧗" : "↓"}</label>
     <input
       id={"file-input"}
       type={"file"}
       name={"jsonFile"}
       className={"jsonFile"}
-      onChange={handleFileEvent(handler)}
+      disabled={state.loading}
+      onChange={(evt) => handleFileEvent(evt, state)}
     />
   </div>
 ));
 
 interface JSONNodeProps {
-  handler: (fileContents: string) => void;
+  state: FileUploadState;
+}
+
+interface FileUploadState {
+  loading: boolean;
+  fileContents: string;
+  validity: "notyet" | "valid" | "invalid";
+}
+
+export function createFileUploadState(): FileUploadState {
+  return { loading: false, fileContents: "{}", validity: "notyet" };
 }

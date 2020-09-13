@@ -1,0 +1,22 @@
+.input {
+    height: 3rem;
+    font-size: 2rem;
+    border: black 2mm solid;
+    box-sizing: border-box;
+}
+
+.input input {
+    height: 100%;
+    width: 100%;
+    font-size: inherit;
+    border: none;
+}
+
+.input.valid{
+    border-color: green;
+}
+.input.invalid{
+    border-color: red;
+}
+
+

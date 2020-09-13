@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { observer } from "mobx-react";
+import "./DelayedInput.css";
 
 const updateDelayed = _.debounce(
   (value: string, delayedInputProps: DelayedInputProps) => {

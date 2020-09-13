@@ -1,0 +1,21 @@
+.file-upload input {
+    display: none;
+}
+
+.file-upload {
+    width: 3rem;
+    height: 3rem;
+    border: black 2mm solid;
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    font-size: 1.8rem;
+}
+
+.file-upload label {
+    text-align: center;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}

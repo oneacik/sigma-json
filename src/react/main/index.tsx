@@ -11,6 +11,8 @@ import {
 } from "../input/DelayedInput";
 import JSONPath from "jsonpath";
 import { select } from "../../utils/JSONPathWalker";
+import "./Main.css";
+import { Container } from "../node/Container";
 
 const state = observable({
   json: "{}",
@@ -43,20 +45,24 @@ reaction(
 );
 
 const Page = observer(() => (
-  <div>
-    <FileUpload handler={(x) => (state.json = x)} />
-    <DelayedInput
-      validator={(x) => {
-        try {
-          JSONPath.parse(x);
-          return true;
-        } catch (err) {
-          return false;
-        }
-      }}
-      stateReference={state.stateJsonPath}
-    />
-    <JSONNode node={state.stateTree} />
+  <div className={"main"}>
+    <div className={"line"}>
+      <FileUpload handler={(x) => (state.json = x)} />
+      <DelayedInput
+        validator={(x) => {
+          try {
+            JSONPath.parse(x);
+            return true;
+          } catch (err) {
+            return false;
+          }
+        }}
+        stateReference={state.stateJsonPath}
+      />
+    </div>
+    <Container>
+      <JSONNode node={state.stateTree} />
+    </Container>
   </div>
 ));
 

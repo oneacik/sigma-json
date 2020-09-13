@@ -17,7 +17,7 @@ export function renderValue(input: Node): string {
 export const JSONNode = observer(({ node }: JSONNodeProps) => {
   return (
     <div>
-      <div className={"element"}>
+      <div className={`element ${node.params.selected ? "selected" : ""}`}>
         <div
           onClick={() =>
             node.params.enumerable &&

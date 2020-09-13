@@ -7,7 +7,7 @@ import { Node, PossibleTypes, toTree } from "../../utils/ToTree";
 import { FileUpload } from "../upload/FileUpload";
 import {
   createInitialDelayedInputState,
-  DelayedInput,
+  DelayedInput
 } from "../input/DelayedInput";
 import JSONPath from "jsonpath";
 import { select } from "../../utils/JSONPathWalker";
@@ -25,9 +25,9 @@ function $(
       expanded: false,
       selected,
       ...(enumerable !== undefined ? { enumerable } : {}),
-      ...(type !== undefined ? { type } : {}),
+      ...(type !== undefined ? { type } : {})
     },
-    value,
+    value
   };
 }
 
@@ -39,16 +39,15 @@ const sampleTree = $(
 ) as Node;
 
 const state = observable({
-  json: "",
-  stateTree: sampleTree,
-  stateJsonPath: createInitialDelayedInputState(),
+  json: "{}",
+  stateTree: toTree({}),
+  stateJsonPath: createInitialDelayedInputState()
 });
 
 reaction(
-  () => [state.json, state.stateJsonPath],
+  () => [state.stateJsonPath.delayedValue, state.stateTree],
   () => {
-    console.log(state.stateJsonPath.delayedValue);
-    const paths = JSONPath.paths(state.json, state.stateJsonPath.delayedValue);
+    const paths = JSONPath.paths(JSON.parse(state.json), state.stateJsonPath.delayedValue);
     select(state.stateTree, paths);
   }
 );

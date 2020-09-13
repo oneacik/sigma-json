@@ -34,6 +34,10 @@
     color: gray;
 }
 
+.element.selected {
+    color: red;
+}
+
 .elements {
     padding-left: var(--medium);
 }

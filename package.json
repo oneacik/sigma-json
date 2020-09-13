@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "Boilerplate for MobX + React project with Typescript, ES6 compilation and hot code reloading",
   "scripts": {
-    "start": "node server.js",
+    "start": "node express.js",
+    "build": "webpack",
+    "dev": "node server.js",
     "prettify": "prettier --config .prettierrc.json -w 'src/**/*.{ts,tsx}'",
     "eslintify": "eslint --ext .js,.jsx,.ts,.tsx --fix ./",
     "test": "jest"
+  },
+  "engines": {
+    "node": "v13.8.0"
   },
   "husky": {
     "hooks": {
@@ -38,7 +43,9 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
-    "ts-essentials": "^7.0.0"
+    "html-webpack-plugin": "^4.4.1",
+    "ts-essentials": "^7.0.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@sinonjs/fake-timers": "^6.0.1",
@@ -54,6 +61,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "eslint": "^7.8.1",
+    "express": "^4.17.1",
     "fileapi": "^2.2.0",
     "hashset": "0.0.6",
     "husky": "^3.1.0",

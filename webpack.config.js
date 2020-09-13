@@ -1,17 +1,19 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   devtool: "eval",
   mode: "development",
   entry: [
-    "webpack-dev-server/client?http://localhost:3000",
+//    "webpack-dev-server/client?http://localhost:3000",
     "./src/react/main/index"
   ],
+  plugins: [new HtmlWebpackPlugin()],
   output: {
     path: path.join(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: "/static/"
+    publicPath: "/"
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".css"]

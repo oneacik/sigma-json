@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { observable, reaction } from "mobx";
+import { action, observable, reaction } from "mobx";
 import { observer } from "mobx-react";
 import JSONPath from "jsonpath";
 import { JSONNode } from "../node/JSONNode";
@@ -16,30 +16,33 @@ import { Container } from "../node/Container";
 
 const state = observable({
   fileUpload: createFileUploadState(),
+  jsonObject: {},
   stateTree: toTree({}),
   stateJsonPath: createInitialDelayedInputState(),
 });
 
 reaction(
-  () => [state.stateJsonPath.delayedValue, state.stateTree],
+  () => state.fileUpload.fileContents,
   () => {
-    const paths = JSONPath.paths(
-      JSON.parse(state.fileUpload.fileContents),
-      state.stateJsonPath.delayedValue
-    );
-    select(state.stateTree, paths);
+    state.jsonObject = JSON.parse(state.fileUpload.fileContents);
   }
 );
 
 reaction(
-  () => state.fileUpload.fileContents,
+  () => state.jsonObject,
   () => {
-    try {
-      const objectToView = JSON.parse(state.fileUpload.fileContents);
-      state.stateTree = toTree(objectToView);
-    } catch (e) {
-      console.debug(e);
-    }
+    state.stateTree = toTree(state.jsonObject);
+  }
+);
+
+reaction(
+  () => [state.stateJsonPath.delayedValue, state.stateTree],
+  () => {
+    const paths = JSONPath.paths(
+      state.jsonObject,
+      state.stateJsonPath.delayedValue
+    );
+    action(() => select(state.stateTree, paths))();
   }
 );
 

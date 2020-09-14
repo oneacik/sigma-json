@@ -32,6 +32,7 @@ export const DelayedInput = observer((props: DelayedInputProps) => (
   <div className={`input ${props.stateReference.validity}`}>
     <input
       type={"text"}
+      placeholder={"Input Your JSONPath Expression"}
       value={props.stateReference.fieldValue}
       onChange={(evt) => change(evt.target.value, props)}
     />
@@ -50,5 +51,5 @@ export interface StateReference {
 }
 
 export function createInitialDelayedInputState(): StateReference {
-  return { fieldValue: "", validity: "notyet", delayedValue: "" };
+  return { fieldValue: "$", validity: "valid", delayedValue: "$" };
 }

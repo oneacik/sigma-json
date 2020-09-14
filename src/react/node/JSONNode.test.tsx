@@ -2,10 +2,10 @@ import { shallow, configure, mount } from "enzyme";
 import * as React from "react";
 import Adapter from "enzyme-adapter-react-16";
 import { observable } from "mobx";
-import { $ } from "../../utils/ToTree.test";
 import { JSONNode, renderValue } from "./JSONNode";
 import "jsdom-global/register";
 import { Node } from "../../utils/ToTree";
+import { $ } from "../../utils/TestUtil";
 
 configure({ adapter: new Adapter() });
 
@@ -36,7 +36,9 @@ describe("Root Json Tests", () => {
   test("Node won't expand when not enumerable", () => {
     const sample = observable($("root", [], false, "object")) as Node;
     const render = mount(<JSONNode node={sample} />);
-    expect(render.find("div > .element .expander").length).toBe(0);
+    expect(render.find(".elements .name").length).toEqual(0);
+    render.find("div > .element .expander").simulate("click");
+    expect(render.find(".elements .name").length).toEqual(0);
   });
 
   describe("JSON Node Value Render", () => {

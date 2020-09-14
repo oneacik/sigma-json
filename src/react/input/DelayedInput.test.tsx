@@ -32,7 +32,7 @@ describe("DelayedInput tests", () => {
       <DelayedInput validator={() => true} stateReference={stateReference} />
     );
 
-    expect(stateReference.delayedValue).toBe("");
+    expect(stateReference.delayedValue).toBe("$");
     input.find("input").simulate("change", { target: { value: "smth" } });
     timer.tick(5000); // horrible debounce!
 
@@ -45,11 +45,11 @@ describe("DelayedInput tests", () => {
       <DelayedInput validator={() => false} stateReference={stateReference} />
     );
 
-    expect(stateReference.delayedValue).toBe("");
+    expect(stateReference.delayedValue).toBe("$");
     input.find("input").simulate("change", { target: { value: "smth" } });
     timer.tick(5000); // horrible debounce!
 
-    expect(stateReference.delayedValue).toBe("");
+    expect(stateReference.delayedValue).toBe("$");
   });
 
   test("DelayedInput should change component class to notyet when value is inputted", () => {

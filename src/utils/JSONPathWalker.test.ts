@@ -1,6 +1,6 @@
 import { DeepPartial } from "ts-essentials";
 import JSONPath from "jsonpath";
-import { $ as elem } from "./ToTree.test";
+import { $ as elem } from "./TestUtil";
 import { Node, PossibleTypes, toTree } from "./ToTree";
 import { NodeStripped, reset, select } from "./JSONPathWalker";
 
@@ -14,7 +14,7 @@ describe("JSONPathWalker resets correcly", () => {
     const node: NodeStripped = $("root", [], true);
     reset(node);
     expect(node).toMatchObject<DeepPartial<Node>>({
-      params: { selected: false },
+      params: { selected: false }
     });
   });
 
@@ -25,9 +25,9 @@ describe("JSONPathWalker resets correcly", () => {
       params: { selected: false },
       value: [
         {
-          params: { selected: false },
-        },
-      ],
+          params: { selected: false }
+        }
+      ]
     });
   });
 
@@ -42,10 +42,10 @@ describe("JSONPathWalker resets correcly", () => {
       params: { selected: false },
       value: [
         {
-          params: { selected: true },
+          params: { selected: true }
         },
-        {},
-      ],
+        {}
+      ]
     });
   });
 
@@ -61,9 +61,9 @@ describe("JSONPathWalker resets correcly", () => {
       value: [
         {},
         {
-          params: { selected: false },
-        },
-      ],
+          params: { selected: false }
+        }
+      ]
     });
   });
 
@@ -75,34 +75,34 @@ describe("JSONPathWalker resets correcly", () => {
             category: "reference",
             author: "Nigel Rees",
             title: "Sayings of the Century",
-            price: 8.95,
+            price: 8.95
           },
           {
             category: "fiction",
             author: "Evelyn Waugh",
             title: "Sword of Honour",
-            price: 12.99,
+            price: 12.99
           },
           {
             category: "fiction",
             author: "Herman Melville",
             title: "Moby Dick",
             isbn: "0-553-21311-3",
-            price: 8.99,
+            price: 8.99
           },
           {
             category: "fiction",
             author: "J. R. R. Tolkien",
             title: "The Lord of the Rings",
             isbn: "0-395-19395-8",
-            price: 22.99,
-          },
+            price: 22.99
+          }
         ],
         bicycle: {
           color: "red",
-          price: 19.95,
-        },
-      },
+          price: 19.95
+        }
+      }
     };
 
     const tree = toTree(json);
@@ -114,7 +114,7 @@ describe("JSONPathWalker resets correcly", () => {
       "Nigel Rees",
       "Evelyn Waugh",
       "Herman Melville",
-      "J. R. R. Tolkien",
+      "J. R. R. Tolkien"
     ]);
   });
 
@@ -123,7 +123,7 @@ describe("JSONPathWalker resets correcly", () => {
     const json = {
       ...new Array(100000)
         .fill(0)
-        .map((value, index) => ({ [`idx${index}`]: value })),
+        .map((value, index) => ({ [`idx${index}`]: value }))
     };
     console.timeEnd("json");
 

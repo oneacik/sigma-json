@@ -22,19 +22,7 @@ function isCurrentPathMatching(
   return jsonPath.has(hash(currentPath));
 }
 
-export function select(
-  currentNode: NodeStripped,
-  jsonPaths: (string | number)[][],
-  currentPath: (string | number)[] = ["$"]
-) {
-  _select(
-    currentNode,
-    new Set(jsonPaths.map((jsonPath) => hash(jsonPath))),
-    currentPath
-  );
-}
-
-function _select(
+function selectRecursive(
   currentNode: NodeStripped,
   jsonPaths: Set<string>,
   currentPath: (string | number)[] = ["$"]
@@ -42,9 +30,21 @@ function _select(
   currentNode.params.selected = isCurrentPathMatching(jsonPaths, currentPath);
   if (currentNode.value instanceof Array) {
     currentNode.value.forEach((nextNode) =>
-      _select(nextNode, jsonPaths, [...currentPath, nextNode.params.id])
+      selectRecursive(nextNode, jsonPaths, [...currentPath, nextNode.params.id])
     );
   }
+}
+
+export function select(
+  currentNode: NodeStripped,
+  jsonPaths: (string | number)[][],
+  currentPath: (string | number)[] = ["$"]
+) {
+  selectRecursive(
+    currentNode,
+    new Set(jsonPaths.map((jsonPath) => hash(jsonPath))),
+    currentPath
+  );
 }
 
 type SelectableNode<K extends keyof T, T = Node> = {

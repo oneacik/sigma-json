@@ -11,33 +11,33 @@ const validateJSON = (content) => {
   }
 };
 
-const handleFileEvent = (event, x: FileUploadState) => {
+const handleFileEvent = (event, uploadState: FileUploadState) => {
   const fileList = event.target.files;
   const fileReader = new FileReader();
 
-  fileReader.onload = (event) => {
-    const content = event.target.result as string;
+  fileReader.onload = (fileEvent) => {
+    const content = fileEvent.target.result as string;
     const validated = validateJSON(content);
     if (validated) {
-      Object.assign(x, {
+      Object.assign(uploadState, {
         loading: false,
         validity: "valid",
         fileContents: content,
       });
     } else {
-      Object.assign(x, { loading: false, validity: "invalid" });
+      Object.assign(uploadState, { loading: false, validity: "invalid" });
     }
   };
 
   fileReader.onerror = () => {
-    Object.assign(x, { loading: false, validity: "invalid" });
+    Object.assign(uploadState, { loading: false, validity: "invalid" });
   };
   fileReader.onabort = () => {
-    Object.assign(x, { loading: false, validity: "invalid" });
+    Object.assign(uploadState, { loading: false, validity: "invalid" });
   };
 
   if (fileList.length > 0) {
-    x.loading = true;
+    uploadState.loading = true;
     fileReader.readAsText(fileList[0]);
   }
 };

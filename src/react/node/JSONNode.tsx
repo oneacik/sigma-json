@@ -11,6 +11,8 @@ export function renderValue(input: Node): string {
       return "[]";
     case "value":
       return input.value as string;
+    default:
+      return "?"
   }
 }
 

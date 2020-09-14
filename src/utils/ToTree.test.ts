@@ -1,24 +1,7 @@
 import { Node, PossibleTypes, toTree } from "./ToTree";
+import { $ } from "./TestUtil";
 
-// This function changes its signature so often that I do not define the type
-export function $(
-  id,
-  value,
-  enumerable?: boolean | undefined,
-  type?: PossibleTypes | undefined,
-  selected: boolean = false
-) {
-  return {
-    params: {
-      id,
-      expanded: false,
-      selected,
-      ...(enumerable !== undefined ? { enumerable } : {}),
-      ...(type !== undefined ? { type } : {}),
-    },
-    value,
-  };
-}
+
 
 describe("full", () => {
   test("toTree creates root representation", () => {

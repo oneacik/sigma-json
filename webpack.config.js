@@ -2,9 +2,11 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+console.log(process.env.PROD);
+
 module.exports = {
   devtool: "eval",
-  mode: process.env.prod ? "production" : "development",
+  mode: process.env.PROD ? "production" : "development",
   entry: [
     "./src/react/main/index"
   ],

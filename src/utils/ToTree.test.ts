@@ -1,8 +1,6 @@
 import { Node, PossibleTypes, toTree } from "./ToTree";
 import { $ } from "./TestUtil";
 
-
-
 describe("full", () => {
   test("toTree creates root representation", () => {
     expect(toTree({})).toMatchObject($("root", []));

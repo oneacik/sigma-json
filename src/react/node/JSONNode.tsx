@@ -12,7 +12,7 @@ export function renderValue(input: Node): string {
     case "value":
       return input.value as string;
     default:
-      return "?"
+      return "?";
   }
 }
 

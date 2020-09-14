@@ -4,9 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   devtool: "eval",
-  mode: "development",
+  mode: process.env.prod ? "production" : "development",
   entry: [
-//    "webpack-dev-server/client?http://localhost:3000",
     "./src/react/main/index"
   ],
   plugins: [new HtmlWebpackPlugin()],

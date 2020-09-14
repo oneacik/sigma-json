@@ -1,7 +1,7 @@
 {
-  "name": "mobx-react-typescript-boilerplate",
+  "name": "jsonpath-console",
   "version": "1.0.0",
-  "description": "Boilerplate for MobX + React project with Typescript, ES6 compilation and hot code reloading",
+  "description": "Application that visualizes searches by jsonpath",
   "scripts": {
     "start": "PROD=true node express.js",
     "build": "PROD=true webpack",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mobxjs/mobx-react-typescript-boilerplate.git"
+    "url": "https://github.com/oneacik/sigma-json.git"
   },
   "keywords": [
     "react",
@@ -29,12 +29,8 @@
     "mobx",
     "starter-kit"
   ],
-  "author": "Michel Weststrate <mweststrate@gmail.com> (http://github.com/mweststrate)",
+  "author": "Piotr Suwała",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mobxjs/mobx/issues"
-  },
-  "homepage": "http://mobxjs.github.com/mobx",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "eslint-config-airbnb-typescript": "^10.0.0",

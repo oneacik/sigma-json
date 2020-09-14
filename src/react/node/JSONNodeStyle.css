@@ -10,7 +10,7 @@
 .element {
     display: flex;
     justify-content: flex-start;
-    font-size: 20px;
+    font-size: var(--small);
     align-items: center;
 }
 

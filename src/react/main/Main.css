@@ -1,7 +1,26 @@
+html {
+    font-size: 5mm; /* very important for rem handling! */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#root {
+    padding: 1rem;
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
 .main {
     width: 100%;
-    height: 100vh;
-    margin: 0 auto;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -11,8 +30,14 @@
     flex-grow: 1;
 }
 
-.line{display: flex}
+.line {
+    display: flex
+}
 
-.line .input {flex-grow: 1}
+.line .input {
+    flex-grow: 1
+}
 
-.line :first-child {margin-right: 10px}
+.line :first-child {
+    margin-right: 10px
+}
